@@ -2,23 +2,23 @@
 * { box-sizing:border-box}
 a { color:#fff;}
 .hide { display:none}
-.wrapper { position:absolute; bottom:0; left:0; right:0; top:0; z-index:1; background:url(img/adv-back-steps.png) no-repeat 50% bottom;  background-size:100% 82%;}
+.wrapper { position:absolute; bottom:0; left:0; right:0; top:0; z-index:1;}
 .wrapper:not(.step-one):before { content:""; display:block; position:absolute; z-index:1; background:rgba(204,204,204,0.5); left:0; right:0; bottom:-10px; height:53px;}
 .wrapper h1 { font:normal 14px '_gotham',sans-serif; color:#46aaff; text-transform:uppercase; margin:0 0 5px; text-align:center}
-.wrapper .choosen-tm { text-align:center; color:#fff; font:bold 13px / 13px Arial, Helvetica, sans-serif; text-transform:uppercase; margin:0 0 5px}
 .wrapper .textfield { font:normal 14px '_gotham',sans-serif; width:100%; height:43px; border:none; cursor:pointer; margin-bottom:20px; text-indent:9px; }
-.wrapper .submit { background:url(img/btn-1.png) no-repeat 50% 50%; font:normal 12px '_gotham',sans-serif; letter-spacing:1px; text-align:center; color:#FFF; width:100%; border:0; cursor:pointer; margin-bottom:20px; height:50px; text-transform:uppercase}
-.step-one { background:url(img/adv-back-step1.png) no-repeat bottom center;}
-.header { min-height:100px; max-height:170px; bottom:75%; top:0; background:url(img/adv-300max-header.png) no-repeat center bottom; background-size:cover; position:absolute; z-index:2; left:0; right:0}
-.header .logo { margin:5% 10%; background:url(img/logo.png) no-repeat center; background-size:contain; min-height:60px;}
+.wrapper .submit {font:normal 12px '_gotham',sans-serif; letter-spacing:1px; text-align:center; color:#FFF; width:100%; border:0; cursor:pointer; margin-bottom:20px; height:50px; text-transform:uppercase}
+.header { min-height:100px; max-height:170px; bottom:75%; top:0; position:absolute; z-index:2; left:0; right:0}
+.header .logo { margin:5% 10%; min-height:60px;}
 .formbox { margin:55% 10% 0;}
-.trophy { background:url(img/trophy.png) no-repeat 50% 100%; background-size:contain; position:absolute; bottom:10px; left:0; right:0; z-index:2; top:61%; max-height:200px}
-.trophy .link { text-decoration:underline; font:normal 10px / 11px '_gotham',sans-serif; color:#000; text-align:center; cursor:pointer; position:absolute; bottom:-6px; left:0; right:0;}
 
+.step-one { }
 .step-two .formbox { margin-top:42%;}
 .step-two .formbox .textfield { margin-bottom:5px;}
 .step-two .formbox .submit { height:43px;}
 
-.step-three .choosen-tm { text-transform:none; line-height:15px}
 .step-three h1 { font-size:24px; margin-top:20px;}
+
+.join-btn { margin: 5px; width:100%; background:rgb(214,136,39);text-align:center; color:#FFF; border: 1px solid white;}
+.btn-next-step {background:rgb(214,136,39); width:75%; text-align:center; color:#FFF; border: 1px solid white; display:inline;}
+.btn-prev-step {background:rgb(214,136,39); width:25%; text-align:center; color:#FFF; border: 1px solid white; display:inline;}
 .error { border: 1px solid #DE1F1F!important; }

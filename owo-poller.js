@@ -1,4 +1,4 @@
-;(function(root, factory) {
+(function(root, factory) {
     if (!root.oneWorldWidget) {
         root.oneWorldWidget = factory();
         document.addEventListener('DOMContentLoaded', oneWorldWidget.initialize.bind(oneWorldWidget));
@@ -115,14 +115,14 @@
             else {
                 console.log('Request without callback');
             }
-        }
+        };
 
         xhr.onerror = function() {
             console.error('Request error');
-        }
+        };
 
         if (objParams.method === 'GET') {
-            xhr.send()
+            xhr.send();
         }
         else if (objParams.method === 'POST') {
             xhr.send(param(objParams.data));
@@ -162,17 +162,18 @@
 
     function injectContent(frame, tplIndex) {
         var iframeDocument = frame.contentDocument,
-            templateSize = Object.keys(templateCollection),
-            tplCurrentIndex = tplIndex !== undefined ? tplIndex : 0;
+            iframeBody = iframeDocument.getElementsByTagName('body')[0],
+            tplCurrentIndex = tplIndex !== undefined ? tplIndex : 0,
+            templateIDs = Object.keys(templateCollection),
+            currentTpl = templateCollection[templateIDs[tplCurrentIndex]];
         
-        if (tplCurrentIndex === 0) {
+
+        if ( tplCurrentIndex === 0 && !iframeBody.children.length ) {
             iframeDocument.open();
-            iframeDocument.write(templateCollection[templateSize[tplCurrentIndex]]);  
+            iframeDocument.write(currentTpl);
         }
         else {
-            var iframeBody = iframeDocument.getElementsByTagName('body')[0];
-
-            iframeBody.innerHTML = templateCollection[templateSize[tplCurrentIndex]];
+            iframeBody.innerHTML = currentTpl;
         }
 
         //additional operations with template
@@ -240,29 +241,42 @@
         if (iframe === null) {
             for (var i = 0; i < widgetListCode.length; i++) {
                 iframe = document.getElementById(widgetListCode[i]);
-                setListener(iframe);
+                setListeners(iframe);
             }
         }
         else {
-            setListener(iframe);
+            setListeners(iframe);
         }
     }
 
-    function setListener(iframe) {
-        if (iframe.contentDocument.getElementById('js-next-step') !== null) {
-            iframe.contentDocument.getElementById('js-next-step').addEventListener('click', clickListener, false);
+    function setListeners(iframe) {
+        var btnNext = iframe.contentDocument.getElementById('js-next-step'),
+            btnPrev = iframe.contentDocument.getElementById('js-prev-step');
+
+        if ( btnNext !== null ) {
+            btnNext.addEventListener('click', onStepNextClick, false);
         }
 
-        if (iframe.contentDocument.getElementById('mark') !== null) {
+        if ( btnPrev !== null ) {
+            btnPrev.addEventListener('click', onStepBackClick, false);
+        }
+
+        if (iframe.contentDocument.getElementById('mark') !== null) {// update this methods
             iframe.contentDocument.getElementById('mark').addEventListener('click', optionsListener, false);
         }
 
-        function clickListener(event) {
+        function onStepNextClick(event) {
             event.preventDefault();
             
             if (validatePollForm(event)) {
-                showNextView();
+                showNextStep();
             }
+        }
+
+        function onStepBackClick(event) {
+            event.preventDefault();
+            
+            showPrevStep(); // add check for authorized status (if authorized - skip authorize step)
         }
 
         function optionsListener(event) {
@@ -278,7 +292,7 @@
             requireInputList = form.querySelectorAll('[require]');
 
         for (var i = 0; i < requireInputList.length; i++) {
-            if (requireInputList[i].value === 'false') {
+            if ( !requireInputList[i].value ) {
                 requireInputList[i].setAttribute('class', requireInputList[i].className + ' error');
                 isValid = false;
             }
@@ -295,26 +309,52 @@
         var activeIframeForm = document.activeElement,
             iframeId = activeIframeForm.attributes.id.value;
 
-        dataForSubmit[iframeId][input.name] = input.value
+        dataForSubmit[iframeId][input.name] = input.value;
     }
 
     /*----------  tplCollection action  ----------*/
-    function showNextView() {
+    function showNextStep() {
         var frame = document.activeElement,
             frameId = frame.attributes.id.value,
-            templateSize = Object.keys(templateCollection);
+            templateLength = Object.keys(templateCollection).length;
 
-        //check for last page
-        if (tplListener[frameId] + 1  === templateSize.length - 1) {
+        //check for last page (submit data from user)
+        if ( tplListener[frameId] + 1  === templateLength  - 1 ) {
             pollVote(frameId);
             //pollAuth(frameId);
         }
         
         //check for next page
-        if (tplListener[frameId] + 1 < templateSize.length) {
+        if ( tplListener[frameId] < templateLength -1 ) {
             injectContent(frame, tplListener[frameId] + 1);
             initListeners(frame);
             tplListener[frameId] += 1;
+        }
+    }
+
+    function showPrevStep() {
+        var frame = document.activeElement,
+            frameId = frame.attributes.id.value,
+            templateLength = Object.keys(templateCollection).length;
+
+        //check for first page
+        // if ( tplListener[frameId] === 0 ) {
+        //     console.log('first page riched');
+        //     //pollAuth(frameId);
+        // }
+
+        if ( tplListener[frameId] !== 0 ) {
+            showContent();
+        }
+        
+        function showContent() {
+            injectContent(frame, tplListener[frameId] - 1);
+            initListeners(frame);
+            tplListener[frameId] -= 1;
+
+            // if ( !tplListener[frameId] ) {
+            //     injectCss();
+            // }
         }
     }
 
@@ -422,5 +462,5 @@
                 }
             });
         }
-    }
+    };
 }));

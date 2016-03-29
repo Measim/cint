@@ -1,0 +1,30 @@
+{
+    "widget.intro.we_need_your_opinion": "Earn REWARDS for Sharing Your Opinion!",
+    "widget.intro.description_world_research_provides": "Researchers and brands want to know what you think—and they are willing to pay you to take surveys from the comfort of your own home.",
+    "widget.intro.description_opinion_will_help": "Your opinion helps companies make important decisions about their products and services. Earn gift card REWARDS.",
+    "widget.intro.description_registration_is_free": "Voice your opinion and get rewarded! <br/> Registration is FREE and takes only a few minutes to complete.",
+    "widget.intro.next_btn": "Get Started",
+
+    "widget.step_n_": "Step",
+    "widget.step_n_of": "of",
+    "widget.step_one_description_please_connect_a_social_media": "Please connect a social media account to continue.",
+    "widget.step_one_description_no_social_registration": "If you don't want to register with social media you can skip to the next step.",
+    "widget.default_btn_next_step": "Next Step",
+    "widget.default_btn_back": "Back",
+
+    "widget.step_two_description": "Please provide some additional information about yourself",
+    "widget.default_placeholder_gender": "Your gender",
+    "widget.selected_gender_male": "Male",
+    "widget.selected_gender_female": "Female",
+    "widget.default_placeholder_birth_year": "Your birth year",
+    "widget.default_placeholder_postal_code": "Postal code",
+    "widget.default_placeholder_email": "Email address",
+
+    "widget.default_label_accept_the": "I accept the",
+    "widget.default_label_terms_and_conditions": "I accept the Terms and Conditions",
+    "widget.final_step_description_thank_you": "Thank You for Registering!",
+    "widget.final_step_description_successfull_registration": "You have successfully registered for our research panel.",
+    "widget.final_step_your_registration_email": "Your registration email:",
+    "widget.final_step_description_you_will_receive_details": "In a few minutes you will receive an email with more information and a link to our site, where you can access your profile and participate in research studies.",
+    "widget.final_step_redirect_offer": "You can also visit our site by clicking the link below."
+}

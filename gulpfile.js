@@ -1,12 +1,13 @@
 var gulp = require('gulp'),
     connect = require('gulp-connect'),
-    minifyCss = require('gulp-minify-css'),
-    inject = require('gulp-inject');
+    minifyCss = require('gulp-minify-css');
 
 var filesToMove = [
-        'owo-poller.js',
-        'data/*',
-        'fonts/*',
+        'owo-cint.js',
+        'languages/*',
+        'css/*',
+        'scss/*',
+        'templates/*',
         'img/*'
     ];
 
@@ -14,18 +15,6 @@ gulp.task('minify-css', function() {
     return gulp.src('css/*.css')
         .pipe(minifyCss({ compatibility: 'ie8' }))
         .pipe(gulp.dest('build/css'));
-});
-
-gulp.task('injectCss', ['minify-css'], function () {
-    gulp.src('templates/widget-content.tpl')
-        .pipe(inject(gulp.src(['build/css/style.css']), {
-            starttag: '<!-- inject:cssFile -->',
-            removeTags: true,
-            transform: function (filePath, file) {
-                return file.contents.toString('utf8');
-            }
-        })
-    ).pipe(gulp.dest('./build/templates'));
 });
 
 gulp.task('move', function(){
@@ -60,5 +49,5 @@ gulp.task('watch', function () {
     gulp.watch(['./*.html', './build/templates/*.tpl', './build/*.js'], ['html', 'tpl', 'js']);
 });
 
-gulp.task('prod', [ 'minify-css', 'injectCss', 'move', 'connect', 'watch']);
+gulp.task('prod', [ 'minify-css', 'move', 'connect', 'watch']);
 gulp.task('dev', [ 'connect', 'watch']);
